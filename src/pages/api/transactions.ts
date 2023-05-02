@@ -1,5 +1,5 @@
 import { transactions } from "@/repositories/ledger/transactions";
-import { Logger } from "@/src/helpers/logger";
+import { Logger } from "@/src/helpers/log/logger";
 import { ITransfer, processTransfer } from "@/src/repositories/ledger/helpers/processTransfer";
 import { NextApiRequest, NextApiResponse } from "next";
 
