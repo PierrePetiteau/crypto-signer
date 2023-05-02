@@ -1,4 +1,4 @@
-import { Logger } from "@/src/helpers/logger";
+import { Logger } from "@/src/helpers/log/logger";
 import { computeBalances } from "@/src/repositories/ledger/helpers/computeBalances";
 import { ITransaction, ITransactionRecord, transactions } from "@/src/repositories/ledger/transactions";
 import { wallets } from "@/src/repositories/ledger/wallets";
