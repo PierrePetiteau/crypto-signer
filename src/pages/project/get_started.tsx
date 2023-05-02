@@ -3,8 +3,8 @@ import Link from "next/link";
 export default function GetStarted() {
   return (
     <div className="max-w-screen-lg">
-      <div className="card m-[24px] p-[24px] bg-base-200">
-        <h2 className="pb-8">Get started</h2>
+      <div className="card m-[24px] p-[16px] bg-base-200">
+        <h2 className="text-xl font-medium pb-8">Get started</h2>
         <p>
           This experiment is an attempt to mock a secure transaction system with private keys. It's a helpful way to
           understand the basics of cryptography in practice. You can play with the generated transaction payload and

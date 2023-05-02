@@ -2,14 +2,14 @@ import { BalancesSection } from "@/src/components/featured/BalancesSection";
 import { SignatureForm } from "@/src/components/featured/SignatureForm";
 import { TransactionForm } from "@/src/components/featured/TransactionForm";
 import { TransferLogs } from "@/src/components/featured/TransferLogs";
-import { BalancesContextProvider } from "@/src/contexts/BalancesContext";
 import { TransferContextProvider } from "@/src/contexts/TransferContext";
+import { WalletContextProvider } from "@/src/contexts/WalletsContext";
 
 export interface TransferClientContainerProps {}
 
 const TransactionPage = ({}: TransferClientContainerProps) => {
   return (
-    <BalancesContextProvider>
+    <WalletContextProvider>
       <TransferContextProvider>
         <div className="max-w-screen-lg p-[24px]">
           <BalancesSection />
@@ -21,7 +21,7 @@ const TransactionPage = ({}: TransferClientContainerProps) => {
           <TransferLogs />
         </div>
       </TransferContextProvider>
-    </BalancesContextProvider>
+    </WalletContextProvider>
   );
 };
 

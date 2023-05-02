@@ -1,7 +1,6 @@
 import { capitalize } from "@/helpers/text/text";
 import { Collapse } from "@/src/components/display/Collapse/Collapse";
-import { useBalances } from "@/src/contexts/BalancesContext";
-import { wallets } from "@/src/repositories/ledger/wallets";
+import { useWallets } from "@/src/contexts/WalletsContext";
 import { RefreshCw } from "react-feather";
 
 const formatSensibleHexKey = (input: string) => {
@@ -10,7 +9,7 @@ const formatSensibleHexKey = (input: string) => {
 };
 
 export const BalancesSection = () => {
-  const { balances, onRefreshBalances } = useBalances();
+  const { wallets, onRefreshWallets } = useWallets();
 
   return (
     <Collapse id="collapse_balances_section" title="Balances" initialState="open">
@@ -27,22 +26,24 @@ export const BalancesSection = () => {
               </tr>
             </thead>
             <tbody>
-              {wallets.map((v) => {
-                return (
-                  <tr key={v.address}>
-                    <td className="border border-gray-600 px-4 py-2">{capitalize(v.pseudo)}</td>
-                    <td className="border border-gray-600 px-4 py-2">{balances ? balances[v.address].amount : 0}</td>
-                    <td className="border border-gray-600 px-4 py-2">{formatSensibleHexKey(v.address)}</td>
-                    <td className="border border-gray-600 px-4 py-2">{formatSensibleHexKey(v.public_key)}</td>
-                    <td className="border border-gray-600 px-4 py-2">{formatSensibleHexKey(v.private_key)}</td>
-                  </tr>
-                );
-              })}
+              {wallets
+                ? wallets.map((v) => {
+                    return (
+                      <tr key={v.address}>
+                        <td className="border border-gray-600 px-4 py-2">{capitalize(v.pseudo)}</td>
+                        <td className="border border-gray-600 px-4 py-2">{v.balance}</td>
+                        <td className="border border-gray-600 px-4 py-2">{formatSensibleHexKey(v.address)}</td>
+                        <td className="border border-gray-600 px-4 py-2">{formatSensibleHexKey(v.public_key)}</td>
+                        <td className="border border-gray-600 px-4 py-2">{formatSensibleHexKey(v.private_key)}</td>
+                      </tr>
+                    );
+                  })
+                : null}
             </tbody>
           </table>
         </div>
         <div className="pt-2 w-full flex justify-end">
-          <button className="btn btn-sm btn-outline btn-secondary self-end gap-2" onClick={() => onRefreshBalances()}>
+          <button className="btn btn-sm btn-outline btn-secondary self-end gap-2" onClick={() => onRefreshWallets()}>
             Refresh <RefreshCw size="14px" />
           </button>
         </div>

@@ -1,8 +1,8 @@
 import { fetchJson } from "@/helpers/api/fetch";
-import { checkCheckboxInput } from "@/helpers/dom/input";
+import { checkCheckboxInput, uncheckCheckboxInput } from "@/helpers/dom/input";
 import { scrollToElement } from "@/helpers/dom/scroll";
 import createContext from "@/helpers/react/context";
-import { useBalances } from "@/src/contexts/BalancesContext";
+import { useWallets } from "@/src/contexts/WalletsContext";
 import { ILog, Logger } from "@/src/helpers/log/logger";
 import { getWalletByPseudo } from "@/src/repositories/ledger/helpers/getWalletByPseudo";
 import { ITransfer } from "@/src/repositories/ledger/helpers/processTransfer";
@@ -37,7 +37,7 @@ export interface ISignatureFields {
 interface TransferContextParams {}
 
 const TransferContext = ({}: TransferContextParams) => {
-  const { onRefreshBalances } = useBalances();
+  const { onRefreshWallets } = useWallets();
   const [initialSignature, setInitialSignature] = useState<ISignatureFields>();
   const [logs, setLogs] = useState<ILog[]>([]);
 
@@ -63,6 +63,8 @@ const TransferContext = ({}: TransferContextParams) => {
 
   const onBuildTransaction = useCallback(
     (fields: ITransactionFields) => {
+      setLogs([]);
+      uncheckCheckboxInput("collapse_logs_section");
       initializeSignatureFieldsFromTransactionFields(fields);
       checkCheckboxInput("collapse_signature_form");
       scrollToElement("collapse_signature_form");
@@ -72,6 +74,8 @@ const TransferContext = ({}: TransferContextParams) => {
 
   const onSignTransaction = useCallback(
     async (fields: ISignatureFields) => {
+      setLogs([]);
+
       const logger = new Logger();
 
       logger.info("Client side - Generate transaction signature");
@@ -112,11 +116,11 @@ const TransferContext = ({}: TransferContextParams) => {
       transfer && logger.merge(transfer.history);
 
       setLogs(logger.history);
-      onRefreshBalances();
+      onRefreshWallets();
       checkCheckboxInput("collapse_logs_section");
       scrollToElement("collapse_logs_section");
     },
-    [onRefreshBalances]
+    [onRefreshWallets]
   );
 
   return {
