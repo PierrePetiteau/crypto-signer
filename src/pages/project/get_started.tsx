@@ -6,9 +6,9 @@ export default function GetStarted() {
       <div className="card m-[24px] p-[16px] bg-base-200">
         <h2 className="text-xl font-medium pb-8">Get started</h2>
         <p>
-          This experiment is an attempt to mock a secure transaction system with private keys. It's a helpful way to
+          {`This experiment is an attempt to mock a secure transaction system with private keys. It's a helpful way to
           understand the basics of cryptography in practice. You can play with the generated transaction payload and
-          check the result.
+          check the result.`}
         </p>
         <p>You can try one of the following modification</p>
         <ul>
